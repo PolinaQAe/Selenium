@@ -1,0 +1,53 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class DiscountTests {
+    
+    public static void main(String[] args) {
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        
+        // Проверка скидок на разных количествах книг
+        checkDiscount(driver, 20, 2);
+        checkDiscount(driver, 50, 3);
+        checkDiscount(driver, 100, 4);
+        checkDiscount(driver, 500, 5);
+        checkDiscount(driver, 1000, 6);
+        checkDiscount(driver, 5000, 7);
+        checkDiscount(driver, 10000, 8);
+        
+        // Закрытие браузера
+        driver.quit();
+    }
+    
+    // Метод для проверки скидки
+    public static void checkDiscount(WebDriver driver, int bookQuantity, int expectedDiscount) {
+        // Переход на страницу с товарами
+        driver.get("http://example.com/books");  // Замените на фактический URL
+        
+        // Имитация добавления книг в корзину
+        WebElement quantityInput = driver.findElement(By.id("quantity")); // Замените на фактический ID
+        quantityInput.clear();
+        quantityInput.sendKeys(String.valueOf(bookQuantity));
+        
+        // Клик на кнопку добавления в корзину
+        WebElement addButton = driver.findElement(By.id("add-to-cart")); // Замените на фактический ID
+        addButton.click();
+
+        // Проверка итоговой цены с применением скидки
+        WebElement discountElement = driver.findElement(By.id("discount")); // Замените на фактический ID
+        String discountText = discountElement.getText();
+        
+        // Ожидаемое значение скидки
+        String expectedDiscountText = expectedDiscount + "%";
+        
+        // Проверяем, что полученная скидка соответствует ожидаемой
+        if (discountText.equals(expectedDiscountText)) {
+            System.out.println("Тест пройден для " + bookQuantity + " книг: скидка " + discountText);
+        } else {
+            System.out.println("Тест не пройден для " + bookQuantity + " книг: ожидалась " + expectedDiscountText + ", получена " + discountText);
+        }
+    }
+}
