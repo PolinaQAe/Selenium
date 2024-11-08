@@ -1,0 +1,92 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.junit.Assert;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class DiscountTests {
+
+    private WebDriver driver;
+
+    @Before
+    public void setUp() {
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+        driver = new ChromeDriver();
+        driver.get("https://www.sharelane.com/cgi-bin/shopping_cart.py");
+    }
+
+    @Test
+    public void testDiscountTwoPercent() {
+        // Добавьте книги на сумму от 20 до 49 долларов
+        addBooksToCart(3); // Например, 3 книги по 10 долларов
+        
+        WebElement discountElement = driver.findElement(By.id("discount")); // Замените на актуальный селектор
+        String discountText = discountElement.getText();
+        Assert.assertTrue("Ожидалась скидка 2%", discountText.contains("2%"));
+    }
+
+    @Test
+    public void testDiscountThreePercent() {
+        // Добавьте книги на сумму от 50 до 99 долларов
+        addBooksToCart(6); // Например, 6 книг по 10 долларов
+        
+        WebElement discountElement = driver.findElement(By.id("discount")); // Замените на актуальный селектор
+        String discountText = discountElement.getText();
+        Assert.assertTrue("Ожидалась скидка 3%", discountText.contains("3%"));
+    }
+
+    @Test
+    public void testDiscountFourPercent() {
+        // Добавьте книги на сумму от 100 до 499 долларов
+        addBooksToCart(15); // Например, 15 книг по 10 долларов
+        
+        WebElement discountElement = driver.findElement(By.id("discount")); // Замените на актуальный селектор
+        String discountText = discountElement.getText();
+        Assert.assertTrue("Ожидалась скидка 4%", discountText.contains("4%"));
+    }
+
+    @Test
+    public void testDiscountSixPercent() {
+        // Добавьте книги на сумму от 1000 до 4999 долларов
+        addBooksToCart(150); // Например, 150 книг по 10 долларов
+        
+        WebElement discountElement = driver.findElement(By.id("discount")); // Замените на актуальный селектор
+        String discountText = discountElement.getText();
+        Assert.assertTrue("Ожидалась скидка 6%", discountText.contains("6%"));
+    }
+
+    @Test
+    public void testDiscountSevenPercent() {
+        // Добавьте книги на сумму от 500 до 9999 долларов
+        addBooksToCart(700); // Например, 700 книг по 10 долларов
+        
+        WebElement discountElement = driver.findElement(By.id("discount")); // Замените на актуальный селектор
+        String discountText = discountElement.getText();
+        Assert.assertTrue("Ожидалась скидка 7%", discountText.contains("7%"));
+    }
+
+    @Test
+    public void testDiscountEightPercent() {
+        // Добавьте книги на сумму свыше 10000 долларов
+        addBooksToCart(1500); // Например, 1500 книг по 10 долларов
+        
+        WebElement discountElement = driver.findElement(By.id("discount")); // Замените на актуальный селектор
+        String discountText = discountElement.getText();
+        Assert.assertTrue("Ожидалась скидка 8%", discountText.contains("8%"));
+    }
+
+    private void addBooksToCart(int numberOfBooks) {
+        WebElement addBookButton = driver.findElement(By.id("add_book")); // Замените на актуальный селектор
+        for (int i = 0; i < numberOfBooks; i++) {
+            addBookButton.click();
+        }
+    }
+
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
+}
