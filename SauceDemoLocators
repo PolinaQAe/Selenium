@@ -1,0 +1,63 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import java.util.List;
+
+public class SauceDemoLocators {
+    private WebDriver driver;
+
+    @Before
+    public void setUp() {
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+        driver = new ChromeDriver();
+        driver.get("https://www.saucedemo.com/");
+    }
+
+    @Test
+    public void testLocators() {
+        // ID
+        WebElement usernameInput = driver.findElement(By.id("user-name"));
+        WebElement passwordInput = driver.findElement(By.id("password"));
+        
+        // Name
+        WebElement usernameInputByName = driver.findElement(By.name("user-name"));
+        
+        // Class Name
+        WebElement loginButton = driver.findElement(By.className("btn_action"));
+        
+        // Tag Name
+        List<WebElement> inputFields = driver.findElements(By.tagName("input"));
+
+        // Link Text
+        WebElement link = driver.findElement(By.linkText("LinkedIn"));
+
+        // Partial Link Text
+        WebElement partialLink = driver.findElement(By.partialLinkText("Link"));
+
+        // XPath examples
+        WebElement specificInput = driver.findElement(By.xpath("//input[@type='text']"));
+        WebElement specificText = driver.findElement(By.xpath("//div[text()='Login']"));
+        WebElement partialAttribute = driver.findElement(By.xpath("//input[contains(@class,'input')]"));
+        WebElement partialText = driver.findElement(By.xpath("//div[contains(text(),'Your login credentials')]"));
+        WebElement ancestorExample = driver.findElement(By.xpath("//*[text()='Login']//ancestor::div"));
+        
+        // CSS Selectors
+        WebElement cssByClass = driver.findElement(By.cssSelector(".btn_action"));
+        WebElement cssById = driver.findElement(By.cssSelector("#user-name"));
+        WebElement complexCSS = driver.findElement(By.cssSelector(".form_input.container input"));
+        WebElement attributeSelector = driver.findElement(By.cssSelector("[type='text']"));
+        WebElement partialAttributeCSS = driver.findElement(By.cssSelector("[class*='btn']"));
+        WebElement startsWith = driver.findElement(By.cssSelector("[placeholder^='Username']"));
+        WebElement endsWith = driver.findElement(By.cssSelector("[placeholder$='Name']"));
+        WebElement containsValue = driver.findElement(By.cssSelector("[placeholder*='er']"));
+    }
+
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
+}
