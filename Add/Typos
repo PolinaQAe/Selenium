@@ -1,0 +1,34 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+public class TyposTest {
+    private WebDriver driver;
+
+    @Before
+    public void setUp() {
+        driver = new ChromeDriver();
+        driver.get("http://the-internet.herokuapp.com/typos");
+    }
+
+    @Test
+    public void testTypos() {
+        String paragraphText = driver.findElement(By.tagName("p")).getText();
+        
+        // Ожидаемый текст
+        String expectedText = "This example demonstrates a typo being introduced. It is there now.";
+        
+        // Проверяем, что текст соответствует ожиданиям
+        assertEquals(expectedText, paragraphText);
+    }
+
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
+}
