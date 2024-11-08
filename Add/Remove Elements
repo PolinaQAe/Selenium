@@ -1,0 +1,40 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
+public class AddRemoveElementsTest {
+    private WebDriver driver;
+
+    @Before
+    public void setUp() {
+        driver = new ChromeDriver();
+        driver.get("http://the-internet.herokuapp.com/add_remove_elements/");
+    }
+
+    @Test
+    public void testAddRemoveElements() {
+        // Добавляем 2 элемента
+        driver.findElement(By.xpath("//button[text()='Add Element']")).click();
+        driver.findElement(By.xpath("//button[text()='Add Element']")).click();
+
+        // Удаляем один элемент
+        List<WebElement> deleteButtons = driver.findElements(By.xpath("//button[text()='Delete']"));
+        deleteButtons.get(0).click();
+
+        // Проверяем количество оставшихся элементов
+        assertEquals(1, driver.findElements(By.xpath("//button[text()='Delete']")).size());
+    }
+
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
+}
