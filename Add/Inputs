@@ -1,0 +1,41 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+public class InputsTest {
+    private WebDriver driver;
+
+    @Before
+    public void setUp() {
+        driver = new ChromeDriver();
+        driver.get("http://the-internet.herokuapp.com/inputs");
+    }
+
+    @Test
+    public void testInputs() {
+        WebElement inputField = driver.findElement(By.tagName("input"));
+
+        // Проверяем возможность ввода числа
+        inputField.sendKeys("5");
+        assertEquals("5", inputField.getAttribute("value"));
+
+        // Увеличиваем значение
+        inputField.sendKeys(Keys.ARROW_UP);
+        assertEquals("6", inputField.getAttribute("value"));
+
+        // Уменьшаем значение
+        inputField.sendKeys(Keys.ARROW_DOWN);
+        assertEquals("5", inputField.getAttribute("value"));
+    }
+
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
+}
