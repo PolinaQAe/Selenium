@@ -1,0 +1,44 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
+public class DropdownTest {
+    private WebDriver driver;
+
+    @Before
+    public void setUp() {
+        driver = new ChromeDriver();
+        driver.get("http://the-internet.herokuapp.com/dropdown");
+    }
+
+    @Test
+    public void testDropdown() {
+        Select dropdown = new Select(driver.findElement(By.id("dropdown")));
+
+        // Проверяю элементы дроп-дауна
+        List<WebElement> options = dropdown.getOptions();
+        assertEquals(3, options.size()); // 2 варианта + 1 пустой
+
+        // Выбираю первый элемент и проверяю, что он выбран
+        dropdown.selectByIndex(1);
+        assertEquals("Option 1", dropdown.getFirstSelectedOption().getText());
+
+        // Выбираю второй элемент и проверяю, что он выбран
+        dropdown.selectByIndex(2);
+        assertEquals("Option 2", dropdown.getFirstSelectedOption().getText());
+    }
+
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
+}
