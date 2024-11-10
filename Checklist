@@ -1,0 +1,25 @@
+User Registration
+
+ Verify successful registration of a new user
+ Verify display of error message for incorrect input data
+ Verify the sending of confirmation email to the user's email address
+User Login
+
+ Verify successful login of an existing user
+ Verify display of error message for incorrect login credentials
+ Verify the functionality of "Remember Me" option
+Product Search
+
+ Verify the correct functioning of search by product name
+ Verify the correct functioning of search by product categories
+ Verify the display of search results on the page
+Checkout Process
+
+ Verify the ability to add a product to the cart
+ Verify the correct display of selected products on the checkout page
+ Verify the checkout process until successful completion
+Shopping Cart
+
+ Verify the ability to change the quantity of products in the cart
+ Verify the ability to remove products from the cart
+ Verify the correct display of the total order amount
